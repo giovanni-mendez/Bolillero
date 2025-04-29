@@ -1,12 +1,10 @@
 ﻿namespace TrabajoBolillero
 {
-    public class Bolillero : ICloneable
+    public class Bolillero 
     {
         public List<int> BolillasAdentro { get; set; } = new List<int>();
         public List<int> BolillasAfuera { get; set; } = new List<int>();
         ILogica Logica;
-
-        public Bolillero() { }
 
         public int SacarBolillas()
         {
@@ -59,14 +57,5 @@
             BolillasAfuera.Clear();
         }
 
-        public object Clone()
-        {
-            return new Bolillero
-            {
-                BolillasAdentro = new List<int>(this.BolillasAdentro),
-                BolillasAfuera = new List<int>(this.BolillasAfuera),
-                Logica = this.Logica
-            };
-        }
     }
 }
