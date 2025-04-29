@@ -1,10 +1,27 @@
 ﻿namespace TrabajoBolillero
 {
-    public class Bolillero 
+    public class Bolillero : IClonable
     {
         public List<int> BolillasAdentro { get; set; } = new List<int>();
         public List<int> BolillasAfuera { get; set; } = new List<int>();
         ILogica Logica;
+
+        public Bolillero(int cantidadBolillas, ILogica logica)
+        {
+            BolillasAdentro = new List<int>();
+            BolillasAfuera = new List<int>();
+
+            for (int i = 0; i < cantidadBolillas; BolillasAdentro.Add(i++)) ;
+
+            Logica = logica;
+        }
+
+        public Bolillero(Bolillero original)
+        {
+            BolillasAdentro = new List<int>(original.BolillasAdentro);
+            BolillasAfuera = new List<int>(original.BolillasAfuera);
+            Logica = original.Logica;
+        }
 
         public int SacarBolillas()
         {
@@ -56,6 +73,8 @@
             BolillasAdentro.AddRange(BolillasAfuera);
             BolillasAfuera.Clear();
         }
+
+        public object Clon() => new Bolillero(this);
 
     }
 }

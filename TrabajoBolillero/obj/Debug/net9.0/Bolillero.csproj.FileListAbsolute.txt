@@ -9,3 +9,4 @@ c:\Users\Lab15-PC01\Documents\GitHub\Bolillero\TrabajoBolillero\obj\Debug\net9.0
 c:\Users\Lab15-PC01\Documents\GitHub\Bolillero\TrabajoBolillero\obj\Debug\net9.0\refint\Bolillero.dll
 c:\Users\Lab15-PC01\Documents\GitHub\Bolillero\TrabajoBolillero\obj\Debug\net9.0\Bolillero.pdb
 c:\Users\Lab15-PC01\Documents\GitHub\Bolillero\TrabajoBolillero\obj\Debug\net9.0\ref\Bolillero.dll
+c:\Users\Lab15-PC01\Documents\GitHub\Bolillero\TrabajoBolillero\obj\Debug\net9.0\Bolillero.sourcelink.json
