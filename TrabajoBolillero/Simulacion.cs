@@ -17,43 +17,36 @@ public class Simulacion
         return aciertos;
     }
 
-    public long SimularConHilos(Bolillero original, List<int> jugada, long cantidadSimulaciones, int cantidadHilos)
+    public long SimularConHilos(Bolillero bolillero, List<int> jugada, long cantidadSimulaciones, int cantidadHilos)
+{      
+    //
+    long simulacionesPorHilo = cantidadSimulaciones / cantidadHilos;
+    long sobrantes = cantidadSimulaciones % cantidadHilos;
+
+    Task<long>[] tareas = new Task<long>[cantidadHilos];
+
+    for (int i = 0; i < cantidadHilos; i++)
     {
-        long aciertos = 0;
+        long simulacionesParaEsteHilo = simulacionesPorHilo + (i < sobrantes ? 1 : 0);
 
-        var contador = new object();
-
-        void SimularEnHilo(long inicio, long fin)
+        tareas[i] = Task.Run(() =>
         {
-            for (long i = inicio; i < fin; i++)
+            long aciertos = 0;
+            Bolillero clon = (Bolillero)bolillero.Clon();
+
+            for (long j = 0; j < simulacionesParaEsteHilo; j++)
             {
-                Bolillero clon = (Bolillero)original.Clon(); 
-                if (clon.Jugar(jugada)) 
-                {
-                    lock (contador)
-                    {
-                        aciertos++;
-                    }
-                }
+                if (clon.Jugar(jugada))
+                    aciertos++;
             }
-        }
 
-        long simulacionesPorHilo = cantidadSimulaciones / cantidadHilos;
-        long sobrantes = cantidadSimulaciones % cantidadHilos; 
-        var tareas = new List<Task>();
-
-        
-        for (int i = 0; i < cantidadHilos; i++)
-        {
-            long inicio = i * simulacionesPorHilo;
-            long fin = inicio + simulacionesPorHilo + (i < sobrantes ? 1 : 0);
-
-            var tarea = Task.Run(() => SimularEnHilo(inicio, fin));
-            tareas.Add(tarea);
-        }
-
-        Task.WhenAll(tareas).Wait();
-
-        return aciertos;
+            return aciertos;
+        });
     }
+
+    Task.WaitAll(tareas);
+
+    long totalAciertos = tareas.Sum(t => t.Result);
+    return totalAciertos;
+}
 }

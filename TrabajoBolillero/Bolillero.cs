@@ -72,7 +72,9 @@
         {
             BolillasAdentro.AddRange(BolillasAfuera);
             BolillasAfuera.Clear();
+            BolillasAdentro.Sort(); // Ordena de menor a mayor
         }
+
 
         public object Clon() => new Bolillero(this);
 

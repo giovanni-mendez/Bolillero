@@ -64,4 +64,34 @@ public class TestBolillero
 
         Assert.Equal(1, ganadas);
     }
+
+    [Fact]
+    public void SimularSinHilos_DeberiaDarAciertosEsperados()
+    {
+        var bolillero = new Bolillero(10, new SacarPrimero());
+        Simulacion sim = new Simulacion();
+
+        var jugada = new List<int> { 0, 1, 2 };
+
+        // Solo se acierta si siempre se sacan 0,1,2 (con SacarPrimero esto ocurre siempre)
+        long cantidad = 10;
+        long aciertos = sim.SimularSinHilos(bolillero, jugada, cantidad);
+
+        Assert.Equal(cantidad, aciertos);
+    }
+
+    [Fact]
+    public void SimularConHilos_DeberiaDarAciertosEsperados()
+    {
+        var bolillero = new Bolillero(10, new SacarPrimero());
+        Simulacion sim = new Simulacion();
+
+        var jugada = new List<int> { 0, 1, 2 };
+
+        long cantidad = 10;
+        int hilos = 2;
+        long aciertos = sim.SimularConHilos(bolillero, jugada, cantidad, hilos);
+
+        Assert.Equal(cantidad, aciertos);
+    }
 }
