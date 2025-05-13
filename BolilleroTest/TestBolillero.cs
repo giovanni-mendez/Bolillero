@@ -94,4 +94,22 @@ public class TestBolillero
 
         Assert.Equal(cantidad, aciertos);
     }
+
+    [Fact]
+    public async Task SimularConHilosAsync_DeberiaDevolverUnResultadoEsperado()
+    {
+        
+        Bolillero bolillero = new Bolillero(10, new SacarPrimero()); 
+        List<int> jugada = new List<int> { 1, 2, 3 }; 
+        long cantidadSimulaciones = 1000;
+        int cantidadHilos = 4;
+
+        Simulacion simulacion = new Simulacion();
+
+        
+        long resultado = await simulacion.SimularConHilosAsync(bolillero, jugada, cantidadSimulaciones, cantidadHilos);
+
+        
+        Assert.InRange(resultado, 0, cantidadSimulaciones);
+    }
 }
