@@ -2,5 +2,5 @@ namespace TrabajoBolillero;
 
 public interface IClonable
 {
-    public object Clon();
+    public Bolillero Clon();
 }

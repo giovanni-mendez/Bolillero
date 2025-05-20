@@ -76,6 +76,7 @@ public class Bolillero : IClonable
     }
 
 
-    public object Clon() => new Bolillero(this);
+    public Bolillero Clon() => new Bolillero(this);
+    
 
 }
